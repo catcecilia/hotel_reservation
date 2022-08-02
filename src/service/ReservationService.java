@@ -24,8 +24,12 @@ public class ReservationService {
 
 
     //method to add room to hotel application
-    public void addRoom(IRoom room){
-        allRooms.put(room.getRoomNumber(), room);
+    public void addRoom(IRoom room) throws Exception {
+        try {
+            allRooms.put(numberCheck(room.getRoomNumber()), room);
+        } catch(Exception e) {
+            System.out.print(e.getMessage());
+        }
     }
 
     //gets all rooms
@@ -134,7 +138,20 @@ public class ReservationService {
         }
     }
 
+    // default modifier method to check if the roomNumber ID is an actual number
+    String numberCheck(String roomNumber) throws Exception{
+        String reGex = "(0-9)";
+        while(true){
+            if(roomNumber.matches(reGex)) {
+                break;
+            } else {
+                //throws an exception when it's not a number
+                throw new Exception("Unable to add room(s), room number " + roomNumber + " is not a number \n");
+            }
+        }
+        return roomNumber;
 
+    }
 
     //static reference
     public static ReservationService getInstance() {

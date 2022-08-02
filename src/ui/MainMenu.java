@@ -212,9 +212,9 @@ public class MainMenu {
     private static boolean getYesOrNo(Scanner input) {
         while (true) {
             String answer = input.next();
-            if(answer.equals("y") || answer.equals("Y")) {
+            if(answer.equalsIgnoreCase("y")) {
                 return true;
-            } else if (answer.equals("n") || answer.equals("N")){
+            } else if (answer.equalsIgnoreCase("n")){
                 return false;
             } else {
                 System.out.println("Please enter Yes or No y/n");
