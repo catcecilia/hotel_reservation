@@ -31,32 +31,36 @@ public class MainMenu {
             String userInputString = input.next();
 
             while (true){
-                if (userInputString.equals("1")) {
-                    findAndReserveARoom(input);
-                    break;
-                } else if (userInputString.equals("2")) {
-                    seeMyReservations(input);
-                    break;
-                } else if (userInputString.equals("3")) {
-                    try{
-                        createAnAccount(input);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                } else if (userInputString.equals("4")) {
-                    AdminMenu.runAdminMenu(input);
-                    break;
-                } else if (userInputString.equals("5")) {
-                    System.out.println("Good bye.");
-                    break;
-                } else {
-                    System.out.println("Please select a number for the menu option");
-                    userInputString = input.next();
+                //boolean is used to make sure that after all EXCEPT for invalid userinputs, there will be a break away from the while loop
+                boolean invalidMenuOption = false;
+                switch (userInputString) {
+                    case "1":
+                        findAndReserveARoom(input);
+                        break;
+                    case "2":
+                        seeMyReservations(input);
+                        break;
+                    case "3":
+                        try{
+                            createAnAccount(input);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case "4":
+                        AdminMenu.runAdminMenu(input);
+                        break;
+                    case "5":
+                        System.out.println("Good bye.");
+                        return;
+                    default:
+                        invalidMenuOption = true;
+                        System.out.println("Please select a number for the menu option");
+                        userInputString = input.next();
                 }
-            }
-            if (userInputString.equals("5")){
-                break;
+                if (!invalidMenuOption) {
+                    break;
+                }
             }
         }
     }

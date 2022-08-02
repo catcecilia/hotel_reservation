@@ -29,23 +29,30 @@ public class AdminMenu {
 
             String adminInputString = input.next();
             while (true) {
-                if (adminInputString.equals("1")) {
-                    seeAllCustomers();
+                //boolean is used to make sure that after all EXCEPT for invalid userinputs, there will be a break away from the while loop
+                boolean invalidMenuOption = false;
+                switch (adminInputString) {
+                    case "1":
+                        seeAllCustomers();
+                        break;
+                    case "2":
+                        seeAllRooms();
+                        break;
+                    case "3":
+                        seeAllReservations();
+                        break;
+                    case "4":
+                        addARoom(input);
+                        break;
+                    case "5":
+                        return;
+                    default:
+                        invalidMenuOption = true;
+                        System.out.println("Please select a number for the menu option");
+                        adminInputString = input.next();
+                }
+                if (!invalidMenuOption) {
                     break;
-                } else if (adminInputString.equals("2")) {
-                    seeAllRooms();
-                    break;
-                } else if (adminInputString.equals("3")) {
-                    seeAllReservations();
-                    break;
-                } else if (adminInputString.equals("4")) {
-                    addARoom(input);
-                    break;
-                } else if (adminInputString.equals("5")) {
-                    return;
-                } else {
-                    System.out.println("Please select a number for the menu option");
-                    adminInputString = input.next();
                 }
             }
 
