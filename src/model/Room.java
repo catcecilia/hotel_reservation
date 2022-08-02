@@ -5,7 +5,7 @@ import model.Reservation;
 import model.IRoom;
 
 
-abstract class Room implements IRoom{
+public class Room implements IRoom{
     protected String roomNumber;
     protected Double price;
     protected RoomType enumeration;

@@ -19,7 +19,11 @@ public class Reservation {
     }
     @Override
     public String toString() {
-        return "Reservation for " + customer + "\nRoom: " + room + "\n Dates:" + checkInDate + " - " + checkOutDate;
+        return customer.firstName + " " + customer.lastName + "\n" +
+               "Room: " + room.getRoomNumber() + " - " + room.getRoomType() + " bed \n" +
+               "Price: $" + room.getRoomPrice() + " price per night \n" +
+               "Checkin Date: " + checkInDate + "\n" +
+               "Checkout Date: " + checkOutDate + "\n";
     }
 
 }

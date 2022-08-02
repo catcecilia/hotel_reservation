@@ -17,7 +17,7 @@ public class Customer {
         * if validation passes, this particular instance will be part of Customer collection   */
 
         if (!pattern.matcher(email).matches()) {
-            throw new IllegalArgumentException("Invalid email format. It must match name@domain.com. Sorry, " + firstName +" " + lastName + ".");
+            throw new IllegalArgumentException("Invalid email format. It must match name@domain.com. \n");
         }
 
         this.firstName = firstName;

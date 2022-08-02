@@ -35,7 +35,7 @@ public class CustomerService {
                 }
             }
 
-            throw new Exception("Customer not found");
+            throw new Exception("Customer not found \n");
     }
 
     //method that gets all customers within the collection

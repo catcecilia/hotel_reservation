@@ -36,11 +36,11 @@ public class ReservationService {
     //method that finds room by room number and returns the details of room number, price, & type
     public IRoom getARoom(String roomId) throws Exception {
         if (allRooms.containsKey(roomId)){
-            allRooms.get(roomId);
+            return allRooms.get(roomId);
         }
 
-        //Throws exception if not fond
-        throw new Exception("Room not found");
+        //Throws exception if not found
+        throw new Exception("Room not found \n");
     }
 
 
@@ -67,8 +67,8 @@ public class ReservationService {
 
 
     //method that finds room based on date availability
-    public List<IRoom> findRooms(Date checkInDate, Date checkOutDate){
-        List<IRoom> availableRooms = new LinkedList<IRoom>();
+    public List<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
+        List<IRoom> availableRooms = new LinkedList<>();
 
         //check every room in repository
         allRooms.forEach( (key, value) -> {
@@ -79,10 +79,18 @@ public class ReservationService {
             //create list of reservations
             List<Reservation> reservations = allReservations.get(key);
 
+            if (reservations == null) {
+                availableRooms.add(value);
+                return;
+            }
+
             for (Reservation reservation: reservations) {
                 //determine if checkout date is in between already reserved checkin & checkout dates OR checkin date is in between already reserved checkin & checkout dates
-                if ((checkOutDate.compareTo(reservation.checkInDate) >= 0) && (checkOutDate.compareTo(reservation.checkOutDate) <= 0) || ((checkInDate.compareTo(reservation.checkInDate) >=0 ) && (checkInDate.compareTo(reservation.checkOutDate) <= 0))) {
-
+                if (
+                        ((checkOutDate.compareTo(reservation.checkInDate) >= 0) && (checkOutDate.compareTo(reservation.checkOutDate) <= 0)) // New checkout date is inside an existing reservation
+                        || ((checkInDate.compareTo(reservation.checkInDate) >=0 ) && (checkInDate.compareTo(reservation.checkOutDate) <= 0)) // New checkin date is inside an existing reservation
+                        || ((checkInDate.compareTo(reservation.checkInDate) <= 0) && (checkOutDate.compareTo(reservation.checkOutDate) >= 0)) // New reservation completely overlaps an existing reservation
+                ) {
                     //if overlap is found, break for loop and assign true value for overlap checker
                     isOverlap = true;
                     break;
@@ -118,7 +126,12 @@ public class ReservationService {
 
     //method that makes allReservations collection be represented as a list and printed out
     public void printAllReservation(){
-        System.out.println(Arrays.asList(allReservations));
+        if (allReservations.isEmpty()) {
+            System.out.println("No reservations in the system \n");
+        } else {
+            allReservations.forEach((key, value) ->
+                System.out.println(value.toString().replace("[","").replace("]","").replace(", ","")));
+        }
     }
 
 
