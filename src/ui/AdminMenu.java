@@ -1,3 +1,5 @@
+package ui;
+
 import api.AdminResource;
 import api.HotelResource;
 import model.*;
