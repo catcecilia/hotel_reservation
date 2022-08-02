@@ -31,6 +31,27 @@ public class Room implements IRoom{
         this.enumeration = enumeration;
     }
 
+    //hashcode and equals overrides
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Room)) {
+            return false;
+        }
+
+        Room other = (Room) o;
+
+        return this.hashCode() == other.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return this.roomNumber.hashCode();
+    }
+
     @Override
     public String toString() {
         return "Room number: " + roomNumber + "\nPrice: " + price + "\nRoom Type: " + enumeration;

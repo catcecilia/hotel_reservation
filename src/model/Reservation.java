@@ -17,6 +17,7 @@ public class Reservation {
         this.checkInDate =  checkInDate;
         this.checkOutDate = checkOutDate;
     }
+
     @Override
     public String toString() {
         return customer.firstName + " " + customer.lastName + "\n" +

@@ -78,23 +78,8 @@ public class AdminMenu {
         RoomType roomType;
         List<IRoom> listOfNewRooms = new LinkedList<>();
         while (true) {
-            while (true) {
-                System.out.println("Enter room number");
-                roomNumber = input.next();
-
-                Collection<IRoom> allRooms = AdminResource.getInstance().getAllRooms();
-                boolean roomNumberExists = false;
-                for (IRoom room : Stream.concat(allRooms.stream(), listOfNewRooms.stream()).collect(Collectors.toList())) {
-                    if (room.getRoomNumber().equals(roomNumber)) {
-                        System.out.println("Room number already exists \n");
-                        roomNumberExists = true;
-                        break;
-                    }
-                }
-                if (!roomNumberExists) {
-                    break;
-                }
-            }
+            System.out.println("Enter room number");
+            roomNumber = input.next();
 
             while (true) {
                 System.out.println("Price");
@@ -126,7 +111,18 @@ public class AdminMenu {
                 newRoom = new Room(roomNumber, price, roomType);
             }
 
-            if (HotelResource.getInstance().getRoom(roomNumber) == null) {
+            Collection<IRoom> allRooms = AdminResource.getInstance().getAllRooms();
+            boolean roomNumberExists = false;
+            for (IRoom room : Stream.concat(allRooms.stream(), listOfNewRooms.stream()).collect(Collectors.toList())) {
+
+                //uses hashcode
+                if (room.equals(newRoom)) {
+                    roomNumberExists = true;
+                    break;
+                }
+            }
+
+            if (!roomNumberExists) {
                 listOfNewRooms.add(newRoom);
             } else {
                 System.out.println("Room number " + roomNumber + " already exists \n");
