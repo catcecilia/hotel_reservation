@@ -7,6 +7,7 @@ import model.IRoom;
 import model.Reservation;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class ReservationService {
 
@@ -140,9 +141,11 @@ public class ReservationService {
 
     // default modifier method to check if the roomNumber ID is an actual number
     String numberCheck(String roomNumber) throws Exception{
-        String reGex = "(0-9)";
+        String reGex = "^\\d$";
+        Pattern pattern = Pattern.compile(reGex);
+
         while(true){
-            if(roomNumber.matches(reGex)) {
+            if(pattern.matcher(roomNumber).matches()) {
                 break;
             } else {
                 //throws an exception when it's not a number
